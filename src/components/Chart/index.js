@@ -26,6 +26,10 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
         setCasesHistory(cases);
         setDeathsHistory(deaths);
       })
+      .catch(error => {
+        setCasesHistory([]);
+        setDeathsHistory([]);
+      })
       .finally(() => {
         LayoutAnimation.easeInEaseOut();
         setIsLoading(false);

@@ -4,10 +4,20 @@ export default {
   fetchHistory(country) {
     return fetch(this.BASE_URL + '/v2/historical/' + country)
       .then(response => response.json())
-      .then(response => ({
-        cases: Object.entries(response.timeline.cases),
-        deaths: Object.entries(response.timeline.deaths)
-      }));
+      .then(response => {
+        if (
+          !response.timeline ||
+          !response.timeline.cases ||
+          !response.timeline.deaths
+        ) {
+          throw new Error(`Country "${country}" not found.`);
+        }
+
+        return {
+          cases: Object.entries(response.timeline.cases),
+          deaths: Object.entries(response.timeline.deaths)
+        };
+      });
   },
 
   fetchLocations() {
