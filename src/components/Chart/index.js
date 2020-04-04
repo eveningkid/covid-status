@@ -5,6 +5,7 @@ import { iOSUIKit } from 'react-native-typography';
 import { useColorScheme } from 'react-native-appearance';
 import { DarkTheme } from '@react-navigation/native';
 import moment from 'moment';
+import thousands from 'thousands';
 import ActivityIndicator from '../ActivityIndicator';
 import LineSeparator from '../LineSeparator';
 import Text from '../Text';
@@ -80,6 +81,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
         fromZero
         yLabelsOffset={8}
         xLabelsOffset={0}
+        formatYLabel={thousands}
         chartConfig={{
           decimalPlaces: 0,
           color: (opacity = 1) =>
@@ -116,14 +118,14 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Last Week</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {lastWeekCases} cases{' '}
+          {thousands(lastWeekCases)} cases{' '}
           <Text
             importantStyle={[
               styles.figureTodayCase,
               isDark && styles.figureTodayCaseDark
             ]}
           >
-            + {today.cases} today
+            + {thousands(today.cases)} today
           </Text>
         </Text>
       </View>
@@ -133,7 +135,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Last Month</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {lastMonthCases} cases
+          {thousands(lastMonthCases)} cases
         </Text>
       </View>
 
@@ -142,7 +144,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Deaths Today</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {today.deaths} deaths
+          {thousands(today.deaths)} deaths
         </Text>
       </View>
 
@@ -151,7 +153,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Critical Cases</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {criticalCases} cases
+          {thousands(criticalCases)} cases
         </Text>
       </View>
 
@@ -160,7 +162,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Cases per one million</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {statsPerMillion.cases} cases
+          {thousands(statsPerMillion.cases)} cases
         </Text>
       </View>
 
@@ -169,7 +171,7 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
       <View style={styles.row}>
         <Text style={iOSUIKit.body}>Deaths per one million</Text>
         <Text style={[iOSUIKit.body, styles.figure]}>
-          {statsPerMillion.deaths} deaths
+          {thousands(statsPerMillion.deaths)} deaths
         </Text>
       </View>
     </>

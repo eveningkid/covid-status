@@ -1,12 +1,16 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { iOSUIKit } from 'react-native-typography';
+import thousands from 'thousands';
 import Text from '../Text';
 
 function Count({ title, count }) {
   return (
     <View style={styles.container}>
-      <Text style={[iOSUIKit.title3Emphasized, styles.figure]}>{count}</Text>
+      <Text style={[iOSUIKit.title3Emphasized, styles.figure]}>
+        {thousands(count)}
+      </Text>
+
       <Text style={[iOSUIKit.footnote, styles.footnote]}>{title}</Text>
     </View>
   );
