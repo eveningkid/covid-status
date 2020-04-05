@@ -11,6 +11,7 @@ import Modal from '../../components/Modal';
 import API from '../../helpers/api';
 import { isDark } from '../../helpers/color';
 import { fetchCountryCode } from '../../helpers/location';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 function LocationsScreen(props) {
   const [locations, setLocations] = useState([]);
@@ -19,6 +20,7 @@ function LocationsScreen(props) {
   const [lastUpdatedTime, setLastUpdatedTime] = useState(Date.now());
   const modalRef = useRef(null);
   const scheme = useColorScheme();
+  const insets = useSafeArea();
 
   function onToggleModal() {
     // NOTE: Trick that doesn't block the UI thread when
@@ -53,9 +55,11 @@ function LocationsScreen(props) {
     <View style={styles.container}>
       <StatusBar
         animated
-        barStyle={
-          isDark(scheme) || isModalOpen ? 'light-content' : 'dark-content'
-        }
+        backgroundColor="black"
+        barStyle={Platform.select({
+          android: 'light-content',
+          ios: isDark(scheme) || isModalOpen ? 'light-content' : 'dark-content'
+        })}
       />
 
       {locations.length === 0 && <LoadingOverlay />}
@@ -65,7 +69,11 @@ function LocationsScreen(props) {
         setCurrentCountryCode={setCurrentCountryCode}
       />
 
-      <Modal ref={modalRef} alwaysOpen={160} onPositionChange={onToggleModal}>
+      <Modal
+        ref={modalRef}
+        alwaysOpen={120 + insets.top}
+        onPositionChange={onToggleModal}
+      >
         {locations.length > 0 && currentCountryCode ? (
           <View style={styles.modalContainer}>
             <CountryTitle

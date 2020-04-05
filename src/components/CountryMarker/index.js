@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
 import { Marker } from 'react-native-maps';
 import { colorsForNumber } from '../../helpers/color';
 
@@ -9,19 +9,22 @@ function CountryMarker({ location, onPress }) {
       key={location.countryCode}
       coordinate={location.coordinates}
       onPress={() => onPress(location.countryCode)}
+      pinColor={colorsForNumber(location.counts.confirmed).background}
     >
-      <View
-        style={[
-          styles.container,
-          {
-            backgroundColor: colorsForNumber(location.counts.confirmed)
-              .background,
-            borderColor: colorsForNumber(location.counts.confirmed).border,
-            width: Math.min(Math.max(20, location.counts.confirmed / 2), 40),
-            height: Math.min(Math.max(20, location.counts.confirmed / 2), 40)
-          }
-        ]}
-      />
+      {Platform.OS === 'ios' && (
+        <View
+          style={[
+            styles.container,
+            {
+              backgroundColor: colorsForNumber(location.counts.confirmed)
+                .background,
+              borderColor: colorsForNumber(location.counts.confirmed).border,
+              width: Math.min(Math.max(20, location.counts.confirmed / 2), 40),
+              height: Math.min(Math.max(20, location.counts.confirmed / 2), 40)
+            }
+          ]}
+        />
+      )}
     </Marker>
   );
 }

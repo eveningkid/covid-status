@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFCC00',
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 2
+    zIndex: 999999999
   }
 });
 

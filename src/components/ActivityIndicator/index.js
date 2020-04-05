@@ -1,5 +1,8 @@
 import React from 'react';
-import { ActivityIndicator as RNActivityIndicator } from 'react-native';
+import {
+  ActivityIndicator as RNActivityIndicator,
+  Platform
+} from 'react-native';
 import { useColorScheme } from 'react-native-appearance';
 import { isDark } from '../../helpers/color';
 
@@ -10,7 +13,10 @@ function ActivityIndicator(props) {
     return <RNActivityIndicator color="white" />;
   }
 
-  return <RNActivityIndicator />;
+  return Platform.select({
+    android: <RNActivityIndicator color="black" />,
+    ios: <RNActivityIndicator />
+  });
 }
 
 export default ActivityIndicator;
