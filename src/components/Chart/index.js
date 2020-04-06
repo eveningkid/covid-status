@@ -38,14 +38,12 @@ function Chart({ country, criticalCases, today, statsPerMillion, updatedAt }) {
   }, [country]);
 
   const lastWeekCases =
-    casesHistory.length > 8 &&
-    casesHistory[casesHistory.length - 1][1] -
-      casesHistory[casesHistory.length - 8][1];
+    casesHistory.length > 0 &&
+    casesHistory.slice(-1)[0][1] - casesHistory.slice(-7)[0][1];
 
   const lastMonthCases =
-    casesHistory.length > 31 &&
-    casesHistory[casesHistory.length - 1][1] -
-      casesHistory[casesHistory.length - 31][1];
+    casesHistory.length > 0 &&
+    casesHistory.slice(-1)[0][1] - casesHistory.slice(-31)[0][1];
 
   const data = {
     labels: casesHistory.map(_ => ''),
