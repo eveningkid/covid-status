@@ -2,7 +2,7 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
 export async function fetchCountryCode() {
-  let { status } = await Permissions.askAsync(Permissions.LOCATION);
+  const { status } = await Permissions.askAsync(Permissions.LOCATION);
 
   if (status !== 'granted') {
     console.log('Permission to access location was denied');
