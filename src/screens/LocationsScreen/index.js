@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
-import { useColorScheme } from 'react-native-appearance';
+import { StyleSheet, View } from 'react-native';
 import ActivityIndicator from '../../components/ActivityIndicator';
 import Map from '../../components/Map';
 import CountryCounts from '../../components/CountryCounts';
 import CountryTitle from '../../components/CountryTitle';
 import Chart from '../../components/Chart';
+import StatusBar from '../../components/StatusBar';
 import LoadingOverlay from '../../components/LoadingOverlay';
 import Modal from '../../components/Modal';
 import API from '../../helpers/api';
-import { isDark } from '../../helpers/color';
 import { fetchCountryCode } from '../../helpers/location';
 import { useSafeArea } from 'react-native-safe-area-context';
 
@@ -19,7 +18,6 @@ function LocationsScreen(props) {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [lastUpdatedTime, setLastUpdatedTime] = useState(Date.now());
   const modalRef = useRef(null);
-  const scheme = useColorScheme();
   const insets = useSafeArea();
 
   function onToggleModal() {
@@ -35,16 +33,8 @@ function LocationsScreen(props) {
   }
 
   useEffect(() => {
-    updateLocations();
-
-    const locationsFetchingInterval = setInterval(
-      () => updateLocations(),
-      1000 * 10 * 60
-    );
-
     fetchCountryCode().then(setCurrentCountryCode);
-
-    return () => clearInterval(locationsFetchingInterval);
+    updateLocations();
   }, []);
 
   const selectedLocation =
@@ -53,14 +43,7 @@ function LocationsScreen(props) {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        animated
-        backgroundColor="black"
-        barStyle={Platform.select({
-          android: 'light-content',
-          ios: isDark(scheme) || isModalOpen ? 'light-content' : 'dark-content'
-        })}
-      />
+      <StatusBar forceLightContent={isModalOpen} />
 
       {locations.length === 0 && <LoadingOverlay />}
 
