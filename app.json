@@ -4,11 +4,8 @@
     "slug": "covidstatus",
     "privacy": "public",
     "sdkVersion": "37.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "1.0.1",
+    "platforms": ["ios", "android"],
+    "version": "1.0.6",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
     "icon": "./assets/icon.png",
@@ -20,17 +17,19 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.eveningkid.covidstatus",
-      "buildNumber": "1.0.1",
+      "buildNumber": "1.0.6",
       "supportsTablet": false,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow the app to find the latest statistics for your current location.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow the app to find the latest statistics for your current location."
       }
+    },
+    "android": {
+      "package": "com.eveningkid.covidstatus",
+      "versionCode": 6
     },
     "hooks": {
       "postPublish": [
