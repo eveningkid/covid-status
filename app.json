@@ -31,6 +31,18 @@
         "NSLocationWhenInUseUsageDescription": "Allow the app to find the latest statistics for your current location.",
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow the app to find the latest statistics for your current location."
       }
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "arnaud-dellinger",
+            "project": "covidstatus",
+            "authToken": "fcea4d43f0a745dda6a8f59d980f846c1c30e79471a449818cb675a324e93fa4"
+          }
+        }
+      ]
     }
   }
 }
